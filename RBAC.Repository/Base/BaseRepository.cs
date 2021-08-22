@@ -20,7 +20,8 @@ namespace RBAC.Repository.Base
         where TEntity : class, new()
         where TKey : struct
     {
-        protected string Connstr;
+        public IConfiguration _configuration { get; set; }
+        public const string connStr = "MySql";
 
         /// <summary>
         /// 添加实体
@@ -29,7 +30,7 @@ namespace RBAC.Repository.Base
         /// <returns></returns>
         public virtual int Create(TEntity entity)
         {
-            using (MySqlConnection conn = new MySqlConnection(Connstr))
+            using (MySqlConnection conn = new MySqlConnection(_configuration.GetConnectionString(connStr)))
             {
                 Type type = entity.GetType();
                 List<PropertyInfo> key = type.GetProperties().Where(m => !m.GetCustomAttributes(typeof(KeyAttribute),true).Any()).ToList();
@@ -55,12 +56,24 @@ namespace RBAC.Repository.Base
 
         public virtual TEntity GetEntity(TKey key)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(_configuration.GetConnectionString(connStr)))
+            {
+                Type type = typeof(TEntity);
+                PropertyInfo keyproperty = type.GetProperties().FirstOrDefault(m => m.GetCustomAttributes(typeof(KeyAttribute),true).Any());
+                string sql = $"select * from {type.Name.Replace("model", "", true, null)}  WHERE  {keyproperty} = @{keyproperty}";
+                return conn.QueryFirst<TEntity>(sql, key);
+            }
         }
 
-        public virtual List<TEntity> GetList(string where = null)
+        public virtual List<TEntity> GetList(string where = null, string orderby = null)
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = new MySqlConnection(_configuration.GetConnectionString(connStr)))
+            {
+                string sql = $"select * from {typeof(TEntity).Name.Replace("model", "", true, null)} ";
+                if (!string.IsNullOrWhiteSpace(where))
+                    sql += where;
+                return conn.Query<TEntity>(sql).ToList();
+            }
         }
 
         public virtual (int, List<TEntity>) getPage(int PageIndex = 1, int PageSize = 10, string where = null)

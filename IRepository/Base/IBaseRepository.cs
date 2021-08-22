@@ -24,7 +24,7 @@ namespace RBAC.IRepository.Base
         /// 获取数据
         /// </summary>
         /// <returns></returns>
-        List<TEntity> GetList(string where = null);
+        List<TEntity> GetList(string where = null, string orderby = null);
         /// <summary>
         /// 获取单条数据
         /// </summary>

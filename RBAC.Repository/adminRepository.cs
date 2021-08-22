@@ -8,9 +8,5 @@ namespace RBAC.Repository
 {
     public class adminRepository : BaseRepository<adminModel,int>, IadminRepository
     {
-        public adminRepository(IConfiguration _configuration)
-        {
-            this.Connstr = _configuration.GetConnectionString("MySql");
-        }
     }
 }

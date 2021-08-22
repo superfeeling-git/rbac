@@ -17,30 +17,35 @@ namespace RBAC
 
             containerBuilder.RegisterAssemblyTypes(assemblysIRepository)
                       .AsImplementedInterfaces()
+                      .PropertiesAutowired()
                       .InstancePerLifetimeScope();
 
             var assemblysRepository = Assembly.Load("RBAC.Repository");
 
             containerBuilder.RegisterAssemblyTypes(assemblysRepository)
                       .AsImplementedInterfaces()
+                      .PropertiesAutowired()
                       .InstancePerLifetimeScope();
 
             var assemblysIService = Assembly.Load("RBAC.IService");
 
             containerBuilder.RegisterAssemblyTypes(assemblysIService)
                       .AsImplementedInterfaces()
+                      .PropertiesAutowired()
                       .InstancePerLifetimeScope();
 
             var assemblysService = Assembly.Load("RBAC.Service");
 
             containerBuilder.RegisterAssemblyTypes(assemblysService)
                       .AsImplementedInterfaces()
+                      .PropertiesAutowired()
                       .InstancePerLifetimeScope();
 
             var assemblysAPI = Assembly.Load("RBAC");
 
             containerBuilder.RegisterAssemblyTypes(assemblysAPI)
                       .AsImplementedInterfaces()
+                      .PropertiesAutowired()
                       .InstancePerLifetimeScope();
             #endregion
 
