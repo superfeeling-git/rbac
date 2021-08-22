@@ -5,18 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
-using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace RBAC.Controllers
 {
     public class MenuController : Controller
     {
+        private IConfiguration configuration;
+
+        public MenuController(IConfiguration _configuration)
+        {
+            this.configuration = _configuration;
+        }
+
         public IActionResult Index()
         {
-            using (MySqlConnection conn = new MySqlConnection(""))
-            {
-                conn.Query("");
-            }
             return View();
         }
     }

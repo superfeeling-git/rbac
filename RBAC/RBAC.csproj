@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -25,6 +25,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="MySql.Data" Version="8.0.26" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRepository\RBAC.IRepository.csproj" />
+    <ProjectReference Include="..\IService\RBAC.IService.csproj" />
+    <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
+    <ProjectReference Include="..\RBAC.Repository\RBAC.Repository.csproj" />
+    <ProjectReference Include="..\Service\RBAC.Service.csproj" />
   </ItemGroup>
 
 </Project>

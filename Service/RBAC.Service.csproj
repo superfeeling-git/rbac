@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>RBAC.Service</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRepository\RBAC.IRepository.csproj" />
+    <ProjectReference Include="..\IService\RBAC.IService.csproj" />
+    <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
+  </ItemGroup>
+
+</Project>
