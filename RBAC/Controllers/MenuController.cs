@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace RBAC.Controllers
 {
@@ -14,7 +15,7 @@ namespace RBAC.Controllers
         {
             using (MySqlConnection conn = new MySqlConnection(""))
             {
-                
+                conn.Query("");
             }
             return View();
         }
