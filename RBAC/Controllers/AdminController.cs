@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RBAC.IService;
 using RBAC.Model;
+using RBAC.Filters;
 
 namespace RBAC.Controllers
 {
@@ -17,7 +18,7 @@ namespace RBAC.Controllers
             this.adminService = _adminService;
         }
 
-        [HttpGet]
+        [HttpGet("/user/add")]
         public IActionResult Create()
         {
             return View();
