@@ -1,4 +1,5 @@
 using Autofac;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,13 @@ namespace RBAC
                     options.Filters.Add<CustomAuthonizationFilter>();
                 });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+
+            services.AddAuthorization(config => {
+                
+            });
+
             services.AddSession();
         }
 
@@ -61,6 +69,8 @@ namespace RBAC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
