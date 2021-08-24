@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/LayUI/dist/layuiadmin/layui/layui.js"></script>
     <script>
         layui.config({
@@ -34,6 +34,21 @@
         }).use(['index', 'contlist', 'table', 'tree'], function () {
             var tree = layui.tree;
 
+            var treedata = [];
+
+            $.ajax({
+                url: "/Menu/GetNode",
+                type: "get",
+                dataType: "json",
+                async: false,
+                success: function (d) {
+                    treedata = d;
+                }
+            })
+
+            console.log(treedata);
+
+           
             //渲染
             var inst1 = tree.render({
                 elem: '#test1'  //绑定元素
@@ -45,23 +60,7 @@
                     defaultNodeName: '空节点' //节点默认名称
                     , none: '无数据' //数据为空时的提示文本
                 }
-                , data: [{
-                    title: '江西' //一级菜单
-                    , spread: true
-                    , children: [{
-                        title: '南昌' //二级菜单
-                        , spread: true
-                        , children: [{
-                            title: '高新区' //三级菜单
-                            //…… //以此类推，可无限层级
-                        }]
-                    }]
-                }, {
-                    title: '陕西' //一级菜单
-                    , children: [{
-                        title: '西安' //二级菜单
-                    }]
-                }]
+                , data: treedata
             });
         });
     </script>

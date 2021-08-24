@@ -28,18 +28,17 @@ namespace RBAC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            adminService.Create(new adminModel { AdminID = 0, CreateTime = DateTime.Now, LastLoginTime = DateTime.Now, Password = "123456", UserName = "admin" });
             return View();
-        }/*
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public IActionResult Create(adminModel adminModel)
         {
             return Json(adminService.Create(adminModel));
-        }*/
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace RBAC.Model
         ///<Summary>
         /// 
         ///</Summary>
-        public DateTime LastLoginTime { get; set; }
+        public DateTime? LastLoginTime { get; set; }
         ///<Summary>
         /// 
         ///</Summary>

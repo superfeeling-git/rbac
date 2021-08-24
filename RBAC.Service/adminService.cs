@@ -17,5 +17,11 @@ namespace RBAC.Service
             this.BaseRepository = _repository;
             this.repository = _repository;
         }
+
+        public override int Create(adminModel entity)
+        {
+            entity.CreateTime = DateTime.Now;
+            return base.Create(entity);
+        }
     }
 }

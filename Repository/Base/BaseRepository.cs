@@ -57,6 +57,7 @@ namespace RBAC.Repository.Base
 
             //表名
             string TableName = type.Name.Replace("model", "", true, null);
+
             string sql = $"delete from {type.Name} where {properties.First().Name} = @{properties.First().Name}";
             using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
@@ -90,7 +91,9 @@ namespace RBAC.Repository.Base
             {
                 Type type = typeof(TEntity);
 
-                string sql = $"select * from {type.Name}";
+                string TableName = type.Name.Replace("model", "", true, null);
+
+                string sql = $"select * from {TableName}";
 
                 if (!string.IsNullOrEmpty(where))
                     sql += where;
