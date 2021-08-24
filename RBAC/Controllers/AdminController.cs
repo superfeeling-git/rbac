@@ -34,6 +34,11 @@ namespace RBAC.Controllers
             return new JsonResult(adminService.Create(model));
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
