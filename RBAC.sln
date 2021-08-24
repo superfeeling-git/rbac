@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Model", "RBAC.Model\RB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Repository", "RBAC.Repository\RBAC.Repository.csproj", "{43239B85-1D90-4F07-86A6-752B6F8EF7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IRepository", "IRepository\RBAC.IRepository.csproj", "{208F8F7F-814B-42FB-A3BB-9ACB88AAA545}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IRepository", "RBAC.IRepository\RBAC.IRepository.csproj", "{208F8F7F-814B-42FB-A3BB-9ACB88AAA545}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IService", "IService\RBAC.IService.csproj", "{04B75842-9BE9-499D-878B-813BE4051906}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IService", "RBAC.IService\RBAC.IService.csproj", "{04B75842-9BE9-499D-878B-813BE4051906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Service", "Service\RBAC.Service.csproj", "{EAE34EFC-E64D-482B-B83E-C98B718C3A12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Service", "RBAC.Service\RBAC.Service.csproj", "{EAE34EFC-E64D-482B-B83E-C98B718C3A12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

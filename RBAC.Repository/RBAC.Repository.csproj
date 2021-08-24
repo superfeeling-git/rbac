@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IRepository\RBAC.IRepository.csproj" />
+    <ProjectReference Include="..\RBAC.IRepository\RBAC.IRepository.csproj" />
     <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
   </ItemGroup>
 
