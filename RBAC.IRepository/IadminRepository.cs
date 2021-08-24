@@ -8,6 +8,5 @@ namespace RBAC.IRepository
 {
     public interface IadminRepository : IBaseRepository<adminModel,int>
     {
-
     }
 }

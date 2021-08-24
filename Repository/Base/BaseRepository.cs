@@ -20,13 +20,18 @@ namespace RBAC.Repository.Base
         where TEntity : class, new()
         where Tkey : struct
     {
-        protected IConfiguration configuration;
+        /// <summary>
+        /// 属性注入
+        /// </summary>
+        public IConfiguration configuration { get; set; }
 
         private const string ConnStr = "Mysql";
 
         public virtual int Create(TEntity entity)
         {
-            using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
+            string _connstr = configuration.GetConnectionString(ConnStr);
+
+            using (MySqlConnection conn = new MySqlConnection(_connstr))
             {
                 Type type = typeof(TEntity);
 
