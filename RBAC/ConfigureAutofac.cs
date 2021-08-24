@@ -18,17 +18,35 @@ namespace RBAC
 
 
             #region 方法1   Load 适用于无接口注入
-            //var assemblysServices = Assembly.Load("IRepository");
+            var assemblysIRepository = Assembly.Load("RBAC.IRepository");
 
-            //containerBuilder.RegisterAssemblyTypes(assemblysServices)
-            //          .AsImplementedInterfaces()
-            //          .InstancePerLifetimeScope();
+            containerBuilder.RegisterAssemblyTypes(assemblysIRepository)
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
 
-            //var assemblysRepository = Assembly.Load("Repository");
+            var assemblysRepository = Assembly.Load("RBAC.Repository");
 
-            //containerBuilder.RegisterAssemblyTypes(assemblysRepository)
-            //          .AsImplementedInterfaces()
-            //          .InstancePerLifetimeScope();
+            containerBuilder.RegisterAssemblyTypes(assemblysRepository)
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
+
+            var assemblysIService = Assembly.Load("RBAC.IService");
+
+            containerBuilder.RegisterAssemblyTypes(assemblysIService)
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
+
+            var assemblysService = Assembly.Load("RBAC.Service");
+
+            containerBuilder.RegisterAssemblyTypes(assemblysService)
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
+
+            var assemblys = Assembly.Load("RBAC");
+
+            containerBuilder.RegisterAssemblyTypes(assemblys)
+                      .AsImplementedInterfaces()
+                      .InstancePerLifetimeScope();
 
             #endregion
 
@@ -47,12 +65,12 @@ namespace RBAC
             #endregion
 
             #region 方法3  使用 LoadFile 加载服务层的程序集  将程序集生成到bin目录 实现解耦 不需要引用
-            //获取项目路径
+            /*//获取项目路径
             var basePath = Microsoft.DotNet.PlatformAbstractions.ApplicationEnvironment.ApplicationBasePath;
 
             var RepositoryDllFile = Path.Combine(basePath, "RBAC.dll");
             var RepositoryServices = Assembly.LoadFile(RepositoryDllFile);//直接采用加载文件的方法
-            containerBuilder.RegisterAssemblyTypes(RepositoryServices).AsImplementedInterfaces().InstancePerLifetimeScope();
+            containerBuilder.RegisterAssemblyTypes(RepositoryServices).AsImplementedInterfaces().InstancePerLifetimeScope();*/
             #endregion
 
 

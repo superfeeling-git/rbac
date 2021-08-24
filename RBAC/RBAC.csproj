@@ -28,4 +28,13 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RBAC.IRepository\RBAC.IRepository.csproj" />
+    <ProjectReference Include="..\RBAC.IService\RBAC.IService.csproj" />
+    <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
+    <ProjectReference Include="..\RBAC.ReflectionTest\RBAC.ReflectionTest.csproj" />
+    <ProjectReference Include="..\RBAC.Service\RBAC.Service.csproj" />
+    <ProjectReference Include="..\Repository\RBAC.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
