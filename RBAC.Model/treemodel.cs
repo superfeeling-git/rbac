@@ -21,10 +21,18 @@ namespace RBAC.Model
         /// <summary>
         /// 子节点
         /// </summary>
-        public List<treemodel> children { get; set; }
+        public List<treemodel> children { get; set; } = new List<treemodel>();
         /// <summary>
         /// 是否展开节点，默认：展开
         /// </summary>
         public bool spread { get; set; } = true;
+        /// <summary>
+        /// 菜单链接地址
+        /// </summary>
+        public string href { get; set; }
+        /// <summary>
+        /// 是否显示
+        /// </summary>
+        public bool @checked { get; set; }
     }
 }

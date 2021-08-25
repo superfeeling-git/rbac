@@ -1,4 +1,4 @@
-﻿
+﻿@model RBAC.Model.treemodel
 @{
     Layout = null;
 }
@@ -21,6 +21,33 @@
         <div class="layui-card">
             <div class="layui-card-body">
                 <div id="test1"></div>
+                <form class="layui-form " action="" style="margin-top:3em;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">节点名称</label>
+                        <div class="layui-input-block">
+                            <input asp-for="title" placeholder="请输入节点名称" autocomplete="off" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">链接地址</label>
+                        <div class="layui-input-block">
+                            <input asp-for="href" placeholder="请输入节点名称" autocomplete="off" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否显示</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" id="checked" name="checked" lay-skin="switch" lay-text="显示|隐藏">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" asp-for="id" />
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -31,13 +58,13 @@
             base: '/LayUI/dist/layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', 'contlist', 'table', 'tree'], function () {
+        }).use(['form','index', 'contlist', 'table', 'tree'], function () {
             var tree = layui.tree;
+            var form = layui.form;
+            var treedata = [];                  //1
 
-            var treedata = [];
-
-            $.ajax({
-                url: "/Menu/GetNode",
+            $.ajax({                            //2  异步   两条路    
+                url: "/Menu/GetNode",           //一条路：调用后台方法
                 type: "get",
                 dataType: "json",
                 async: false,
@@ -46,37 +73,80 @@
                 }
             })
 
-            console.log(treedata);
-
-            @*treedata = [{
-                title: '江西' //一级菜单
-                , children: [{
-                    title: '南昌' //二级菜单
-                    , children: [{
-                        title: '高新区' //三级菜单
-                        //…… //以此类推，可无限层级
-                    }]
-                }]
-            }, {
-                title: '陕西' //一级菜单
-                , children: [{
-                    title: '西安' //二级菜单
-                }]
-            }];*@
+            //console.log(treedata);              //3继续向前走
 
            
             //渲染
-            var inst1 = tree.render({
+            var inst1 = tree.render({              //3
                 elem: '#test1'  //绑定元素
-                , showCheckbox: true
+                , showCheckbox: false
                 , edit: ['add', 'update', 'del']
                 //, accordion: true
                 //, showLine: false
+                , onlyIconControl: true
                 , text: {
                     defaultNodeName: '空节点' //节点默认名称
                     , none: '无数据' //数据为空时的提示文本
                 }
                 , data: treedata
+                , click: function (obj) {
+                    @*console.log(obj.data); //得到当前点击的节点数据
+                    console.log(obj.state); //得到当前节点的展开状态：open、close、normal
+                    console.log(obj.elem); //得到当前节点元素
+
+                    console.log(obj.data.children); //当前节点下是否有子节点*@
+                    var nodedata = obj.data;
+                    $("#title").val(nodedata.title);
+                    $("#href").val(nodedata.href);
+                    $("#checked").attr("checked", nodedata.checked);
+                    $("#id").val(nodedata.id);
+                    form.render();
+                }
+                , operate: function (obj) {
+                    var type = obj.type; //得到操作类型：add、edit、del
+                    var data = obj.data; //得到当前节点的数据
+                    var elem = obj.elem; //得到当前节点元素
+
+                    //Ajax 操作
+                    var id = data.id; //得到节点索引
+                    if (type === 'add') { //增加节点
+                        $.ajax({
+                            url: "/Menu/CreateNode",
+                            type: "post",
+                            dataType: "json",
+                            data: data,
+                            success: function (d) {
+                                layer.msg("添加菜单成功", function () {
+                                    window.location.reload();
+                                });
+                            }
+                        })
+                        return 123;
+                    } else if (type === 'update') { //修改节点
+                        console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
+                    } else if (type === 'del') { //删除节点
+
+                    };
+                }
+            });
+
+
+            //更新节点
+            form.on('submit(formDemo)', function (data) {
+                console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+                console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+                console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+
+                $.ajax({
+                    url: "/Menu/UpdateNode",
+                    type: "post",
+                    dataType: "json",
+                    data: data.field,
+                    success: function (d) {
+
+                    }
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
         });
     </script>

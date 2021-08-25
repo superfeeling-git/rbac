@@ -8,5 +8,6 @@ namespace RBAC.IRepository
 {
     public interface ImenuRepository : IBaseRepository<menuModel, int>
     {
+        int UpdateNode(menuModel menuModel);
     }
 }

@@ -14,7 +14,7 @@ namespace RBAC.Model
         ///<Summary>
         /// 
         ///</Summary>
-        public string MenuName { get; set; }
+        public string MenuName { get; set; } = "空节点";
         ///<Summary>
         /// 
         ///</Summary>
@@ -22,7 +22,7 @@ namespace RBAC.Model
         ///<Summary>
         /// 
         ///</Summary>
-        public ushort IsShow { get; set; }
+        public bool IsShow { get; set; } = false;
         ///<Summary>
         /// 
         ///</Summary>
