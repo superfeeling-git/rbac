@@ -24,14 +24,34 @@ namespace RBAC.Service
         {
             var List = repository.GetList();
 
-            foreach (var item in List.Where(m=>m.ParnetID == 0))
+            foreach (var item in List.Where(m => m.ParnetID == 0))
             {
+                //家电--电视机、冰箱、洗衣机
                 treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID };
-
+                GetSubNodes(treemodel, List);
                 Nodes.Add(treemodel);
             }
 
             return Nodes;
+        }
+
+        /// <summary>
+        /// 获取第二级节点
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <param name="list"></param>
+        private void GetSubNodes(treemodel tree, List<menuModel> list)
+        {
+            foreach (var item in list.Where(m => m.ParnetID == tree.id))
+            {
+                treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID };
+
+                tree.children.Add(treemodel);
+
+
+                List<treemodel> treelist = null;
+                treelist.Add(new treemodel { });
+            }
         }
     }
 }

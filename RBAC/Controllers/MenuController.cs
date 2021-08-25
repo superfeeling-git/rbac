@@ -28,6 +28,38 @@ namespace RBAC.Controllers
         [HttpGet]
         public IActionResult GetNode()
         {
+            /*
+            List<treemodel> list = new List<treemodel>();
+
+            List<treemodel> sublist = new List<treemodel>();
+
+            treemodel sub1 = new treemodel
+            {
+                id = 2,
+                title = "bei jing",
+                children = new List<treemodel> {
+                    new treemodel{ 
+                        id = 4,
+                        title = "物联网"
+                    }
+                }
+            };
+
+            treemodel sub2 = new treemodel
+            {
+                id = 3,
+                title = "shang hai"
+            };
+
+            sublist.Add(sub1);
+            sublist.Add(sub2);
+
+            treemodel root1 = new treemodel {
+                id = 1, title = "ba wei", children = sublist
+            };
+
+            list.Add(root1);
+            */
             return Json(service.GetNodes());
         }
     }
