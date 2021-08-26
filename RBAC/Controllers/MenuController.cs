@@ -55,9 +55,20 @@ namespace RBAC.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult UpdateNode(treemodel model)
+        [HttpPost]
+        public IActionResult UpdateNode(menuModel model)
         {
-            return Json(service.UpdateMenu(model));
+            return Json(service.Update(model));
+        }
+
+        /// <summary>
+        /// 删除节点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult DeleteNode(int id)
+        {
+            return Json(service.Delete(id));
         }
     }
 }

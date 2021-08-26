@@ -59,16 +59,5 @@ namespace RBAC.Service
         {
             return repository.Create(new menuModel { ParnetID = treemodel.id });
         }
-
-        /// <summary>
-        /// 更新菜单
-        /// </summary>
-        /// <param name="treemodel"></param>
-        /// <returns></returns>
-        public int UpdateMenu(treemodel treemodel)
-        {
-            menuModel menuModel = new menuModel { MenuID = treemodel.id, MenuLink = treemodel.href, MenuName = treemodel.title, IsShow = treemodel.@checked };
-            return repository.UpdateNode(menuModel);
-        }
     }
 }

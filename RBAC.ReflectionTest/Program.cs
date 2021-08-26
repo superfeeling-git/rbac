@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using RBAC.Model;
+using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace RBAC.ReflectionTest
 {
@@ -9,12 +11,14 @@ namespace RBAC.ReflectionTest
     {
         static void Main(string[] args)
         {
-            //runtime
-            //栈  treelist  指针
-            //托管堆  分配内存
-            int a = 3;
-            List<treemodel> treelist = new List<treemodel>();
-            treelist.Add(new treemodel { id = 1, title = "河北省" });
+            string connstr = "server=localhost;user id=root;persistsecurityinfo=True;database=rbac;password=lp_lucky";
+
+            using (MySqlConnection conn = new MySqlConnection(connstr))
+            {
+                menuModel menu = new menuModel();
+                menu.MenuID = 9;
+                conn.Execute("delete from menu where MenuID = @MenuID", menu);
+            }
 
             Console.ReadLine();
         }

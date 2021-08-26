@@ -10,21 +10,14 @@ namespace Repository
 {
     public class menuRepository : BaseRepository<menuModel, int>, ImenuRepository
     {
-        /// <summary>
-        /// 属性注入
-        /// </summary>
-        public IConfiguration _configuration { get; set; }
+        private IConfiguration _configuration;
+
+        public menuRepository(IConfiguration __configuration)
+        {
+            this.configuration = __configuration;
+            this._configuration = __configuration;
+        }
 
         private const string ConnStr = "Mysql";
-
-        public int UpdateNode(menuModel menuModel)
-        {
-            string _connstr = _configuration.GetConnectionString(ConnStr);
-
-            using (MySqlConnection conn = new MySqlConnection(ConnStr))
-            {
-                return conn.Execute("UPDATE menu SET MenuName = @MenuName,MenuLink = @MenuLink, IsShow = @IsShow WHERE MenuID = @MenuID", menuModel);
-            }
-        }
     }
 }

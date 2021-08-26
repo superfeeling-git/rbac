@@ -55,7 +55,7 @@ namespace RBAC.Service.Base
 
         public virtual int Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            return BaseRepository.Update(entity);
         }
     }
 }

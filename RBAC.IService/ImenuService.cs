@@ -17,10 +17,5 @@ namespace RBAC.IService
         /// </summary>
         /// <returns></returns>
         int CreateMenu(treemodel treemodel);
-        /// <summary>
-        /// 更新菜单
-        /// </summary>
-        /// <returns></returns>
-        int UpdateMenu(treemodel treemodel);
     }
 }

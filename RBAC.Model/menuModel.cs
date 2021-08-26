@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace RBAC.Model
@@ -10,6 +11,7 @@ namespace RBAC.Model
         ///<Summary>
         /// 
         ///</Summary>
+        [Key]
         public int MenuID { get; set; }
         ///<Summary>
         /// 
@@ -26,7 +28,7 @@ namespace RBAC.Model
         ///<Summary>
         /// 
         ///</Summary>
-        public int ParnetID { get; set; }
+        public int? ParnetID { get; set; }
         #endregion
     }
 }

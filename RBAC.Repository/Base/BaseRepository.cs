@@ -8,6 +8,8 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
+using RBAC.Model;
+using System.Data;
 
 namespace RBAC.Repository.Base
 {
@@ -35,7 +37,7 @@ namespace RBAC.Repository.Base
             {
                 Type type = typeof(TEntity);
 
-                PropertyInfo[] properties = type.GetProperties().Where(m => !m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).ToArray();
+                PropertyInfo[] properties = type.GetProperties().Where(m => !m.GetCustomAttributes(typeof(KeyAttribute), true).Any() && m.GetValue(entity) != null).ToArray();
 
                 //表名
                 string TableName = type.Name.Replace("model", "", true, null);
@@ -53,15 +55,20 @@ namespace RBAC.Repository.Base
         public virtual int Delete(Tkey id)
         {
             Type type = typeof(TEntity);
-            PropertyInfo[] properties = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).ToArray();
+            string key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).Select(m => m.Name).First();
 
             //表名
             string TableName = type.Name.Replace("model", "", true, null);
 
-            string sql = $"delete from {type.Name} where {properties.First().Name} = @{properties.First().Name}";
+            string sql = $"delete from {TableName} where {key} = @{key}";
+
+            DynamicParameters parameter = new DynamicParameters();
+
+            parameter.Add($"@{key}", id, DbType.Int32, ParameterDirection.Input);
+
             using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
-                return conn.Execute(sql, id);
+                return conn.Execute(sql, parameter);
             }
         }
 
@@ -112,7 +119,31 @@ namespace RBAC.Repository.Base
 
         public virtual int Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            string _connstr = configuration.GetConnectionString(ConnStr);
+
+            using (MySqlConnection conn = new MySqlConnection(_connstr))
+            {
+                Type type = typeof(TEntity);
+
+                PropertyInfo[] properties = type.GetProperties()
+                    .Where(m => 
+                    !m.GetCustomAttributes(typeof(KeyAttribute), true).Any()
+                    &&
+                    m.GetValue(entity) != null
+                    ).ToArray();
+
+                PropertyInfo key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
+
+
+                //表名
+                string TableName = type.Name.Replace("model", "", true, null);
+                //字段集合
+                List<string> fields = properties.Select(m => m.Name).ToList();
+
+                string sql = $"update {TableName} set {string.Join(',', fields.Select(m => $"{m} = @{m}"))} where {key.Name} = @{key.Name}";
+
+                return conn.Execute(sql, entity);
+            }
         }
     }
 }

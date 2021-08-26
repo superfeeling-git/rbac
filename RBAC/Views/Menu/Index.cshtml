@@ -1,4 +1,4 @@
-﻿@model RBAC.Model.treemodel
+﻿@model RBAC.Model.menuModel
 @{
     Layout = null;
 }
@@ -23,26 +23,26 @@
                 <div id="test1"></div>
                 <form class="layui-form " action="" style="margin-top:3em;">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">节点名称</label>
+                        <label class="layui-form-label">菜单名称</label>
                         <div class="layui-input-block">
-                            <input asp-for="title" placeholder="请输入节点名称" autocomplete="off" class="layui-input" />
+                            <input asp-for="MenuName" placeholder="请输入菜单名称" autocomplete="off" class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">链接地址</label>
                         <div class="layui-input-block">
-                            <input asp-for="href" placeholder="请输入节点名称" autocomplete="off" class="layui-input" />
+                            <input asp-for="MenuLink" placeholder="请输入菜单的链接地址" autocomplete="off" class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">是否显示</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" id="checked" name="checked" lay-skin="switch" lay-text="显示|隐藏">
+                            <input type="checkbox" value="True" asp-for="IsShow" lay-skin="switch" lay-text="显示|隐藏">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <input type="hidden" asp-for="id" />
+                            <input type="hidden" asp-for="MenuID" />
                             <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
@@ -80,7 +80,7 @@
             var inst1 = tree.render({              //3
                 elem: '#test1'  //绑定元素
                 , showCheckbox: false
-                , edit: ['add', 'update', 'del']
+                , edit: ['add', 'del']
                 //, accordion: true
                 //, showLine: false
                 , onlyIconControl: true
@@ -96,10 +96,10 @@
 
                     console.log(obj.data.children); //当前节点下是否有子节点*@
                     var nodedata = obj.data;
-                    $("#title").val(nodedata.title);
-                    $("#href").val(nodedata.href);
-                    $("#checked").attr("checked", nodedata.checked);
-                    $("#id").val(nodedata.id);
+                    $("#MenuName").val(nodedata.title);
+                    $("#MenuLink").val(nodedata.href);
+                    $("#IsShow").attr("checked", nodedata.checked);
+                    $("#MenuID").val(nodedata.id);
                     form.render();
                 }
                 , operate: function (obj) {
@@ -122,10 +122,16 @@
                             }
                         })
                         return 123;
-                    } else if (type === 'update') { //修改节点
-                        console.log(elem.find('.layui-tree-txt').html()); //得到修改后的内容
                     } else if (type === 'del') { //删除节点
-
+                        $.ajax({
+                            url: "/Menu/DeleteNode",
+                            type: "get",
+                            dataType: "json",
+                            data: { id: id},
+                            success: function (d) {
+                                layer.msg("删除节点成功");
+                            }
+                        })
                     };
                 }
             });
@@ -141,9 +147,9 @@
                     url: "/Menu/UpdateNode",
                     type: "post",
                     dataType: "json",
-                    data: data.field,
+                    data: $("form").serialize(),
                     success: function (d) {
-
+                        
                     }
                 })
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
