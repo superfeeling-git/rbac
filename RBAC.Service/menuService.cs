@@ -59,5 +59,33 @@ namespace RBAC.Service
         {
             return repository.Create(new menuModel { ParnetID = treemodel.id });
         }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override int Delete(int id)
+        {
+            //看子节点数量
+            var List = repository.GetList();
+
+            if (List.Count(m => m.ParnetID == id) > 0)
+            {
+                return 0;
+            }
+            return base.Delete(id);
+        }
+
+        /// <summary>
+        /// 获取根节点
+        /// </summary>
+        /// <returns></returns>
+        public List<menuModel> GetRootNodes()
+        {
+            var List = repository.GetList();
+
+            return List.Where(m => m.ParnetID == 0).ToList();
+        }
     }
 }

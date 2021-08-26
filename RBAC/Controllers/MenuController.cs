@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using System.Data.SqlClient;
-using RBAC.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RBAC.IService;
+using RBAC.Model;
 
 namespace RBAC.Controllers
 {
@@ -17,6 +13,34 @@ namespace RBAC.Controllers
         public MenuController(ImenuService _service)
         {
             this.service = _service;
+        }
+
+        [HttpGet]
+        public IActionResult CreateRoot()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateRoot(menuModel menuModel)
+        {
+            return Json(service.Create(menuModel));
+        }
+
+        [HttpGet]
+        public IActionResult List()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetRootNodes()
+        {
+            return Json(new
+            {
+                code = 0,
+                data = service.GetRootNodes()
+            });
         }
 
         /// <summary>

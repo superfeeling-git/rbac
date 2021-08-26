@@ -55,20 +55,25 @@ namespace RBAC.Repository.Base
         public virtual int Delete(Tkey id)
         {
             Type type = typeof(TEntity);
-            string key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).Select(m => m.Name).First();
+            var key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
 
             //表名
             string TableName = type.Name.Replace("model", "", true, null);
 
-            string sql = $"delete from {TableName} where {key} = @{key}";
+            string sql = $"delete from {TableName} where {key.Name} = @{key.Name}";
 
-            DynamicParameters parameter = new DynamicParameters();
+            TEntity entity = new TEntity();
 
-            parameter.Add($"@{key}", id, DbType.Int32, ParameterDirection.Input);
+            key.SetValue(entity, id);
+
+            //menuModel menu = new menuModel();
+            //menu.MenuID = 9;
+            //DynamicParameters parameter = new DynamicParameters();
+            //parameter.Add($"@{key}", id, DbType.Int32, ParameterDirection.Input);
 
             using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
-                return conn.Execute(sql, parameter);
+                return conn.Execute(sql, entity);
             }
         }
 

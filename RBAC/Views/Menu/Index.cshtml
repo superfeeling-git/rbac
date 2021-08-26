@@ -129,7 +129,13 @@
                             dataType: "json",
                             data: { id: id},
                             success: function (d) {
-                                layer.msg("删除节点成功");
+                                if (d > 0) {
+                                    layer.msg("删除节点成功", { icon: 1});
+                                } else {
+                                    layer.msg("还有子节点", { icon: 3, time: 6000 }, function () {
+                                        window.location.reload();
+                                    });
+                                }
                             }
                         })
                     };

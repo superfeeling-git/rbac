@@ -17,5 +17,9 @@ namespace RBAC.IService
         /// </summary>
         /// <returns></returns>
         int CreateMenu(treemodel treemodel);
+        /// <summary>
+        /// 获取根节点
+        /// </summary>
+        List<menuModel> GetRootNodes();
     }
 }
