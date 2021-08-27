@@ -87,9 +87,28 @@ namespace RBAC.Repository.Base
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 根据ID获取单条实体信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual TEntity GetEntity(Tkey id)
         {
-            throw new NotImplementedException();
+            Type type = typeof(TEntity);
+            var key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
+
+            string TableName = type.Name.Replace("model", "", true, null);
+
+            string sql = $"select * from {TableName} where {key.Name} = @{key.Name}";
+
+            TEntity entity = new TEntity();
+
+            key.SetValue(entity, id);
+
+            using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
+            {
+                return conn.QueryFirst<TEntity>(sql, entity);
+            }
         }
 
         public virtual TEntity GetEntity(string where = null)

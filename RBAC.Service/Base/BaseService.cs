@@ -35,7 +35,7 @@ namespace RBAC.Service.Base
 
         public virtual TEntity GetEntity(Tkey id)
         {
-            throw new NotImplementedException();
+            return BaseRepository.GetEntity(id);
         }
 
         public virtual TEntity GetEntity(string where = null)

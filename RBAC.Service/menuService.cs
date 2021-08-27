@@ -27,7 +27,7 @@ namespace RBAC.Service
             foreach (var item in List.Where(m => m.ParnetID == 0))
             {
                 //家电--电视机(液晶、。。。)、冰箱、洗衣机
-                treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID, href = item.MenuLink, @checked = item.IsShow };
+                treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID, href = item.MenuLink, IsShow = item.IsShow };
                 GetSubNodes(treemodel, List);
                 Nodes.Add(treemodel);
             }
@@ -44,7 +44,7 @@ namespace RBAC.Service
         {
             foreach (var item in list.Where(m => m.ParnetID == tree.id))
             {
-                treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID, href = item.MenuLink, @checked = item.IsShow };
+                treemodel treemodel = new treemodel { title = item.MenuName, id = item.MenuID, href = item.MenuLink, IsShow = item.IsShow };
                 tree.children.Add(treemodel);
                 GetSubNodes(treemodel, list);
             }

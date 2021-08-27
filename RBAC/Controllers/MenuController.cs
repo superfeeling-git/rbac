@@ -94,5 +94,23 @@ namespace RBAC.Controllers
         {
             return Json(service.Delete(id));
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(service.GetEntity(id));
+        }
+        
+        [HttpPost]
+        public IActionResult Edit(menuModel menu)
+        {
+            return Json(service.Update(menu));
+        }
+
+        [HttpPost]
+        public IActionResult UpdateName(menuModel menu)
+        {
+            return Json(service.Update(menu));
+        }
     }
 }

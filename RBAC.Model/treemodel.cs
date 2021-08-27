@@ -31,8 +31,12 @@ namespace RBAC.Model
         /// </summary>
         public string href { get; set; }
         /// <summary>
-        /// 是否显示
+        /// 复选框是否勾选
         /// </summary>
         public bool @checked { get; set; }
+        /// <summary>
+        /// 是否显示
+        /// </summary>
+        public bool IsShow { get; set; }
     }
 }
