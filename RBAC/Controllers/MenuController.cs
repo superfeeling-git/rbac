@@ -22,7 +22,7 @@ namespace RBAC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoot(menuModel menuModel)
+        public IActionResult CreateRoot(Menu menuModel)
         {
             return Json(service.Create(menuModel));
         }
@@ -80,7 +80,7 @@ namespace RBAC.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult UpdateNode(menuModel model)
+        public IActionResult UpdateNode(Menu model)
         {
             return Json(service.Update(model));
         }
@@ -102,13 +102,13 @@ namespace RBAC.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(menuModel menu)
+        public IActionResult Edit(Menu menu)
         {
             return Json(service.Update(menu));
         }
 
         [HttpPost]
-        public IActionResult UpdateName(menuModel menu)
+        public IActionResult UpdateName(menuUpdateDto menu)
         {
             return Json(service.Update(menu));
         }

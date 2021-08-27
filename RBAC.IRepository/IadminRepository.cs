@@ -6,7 +6,7 @@ using RBAC.Model;
 
 namespace RBAC.IRepository
 {
-    public interface IadminRepository : IBaseRepository<adminModel,int>
+    public interface IadminRepository : IBaseRepository<Admin,int>
     {
     }
 }

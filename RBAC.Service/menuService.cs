@@ -5,10 +5,12 @@ using RBAC.IService;
 using RBAC.IRepository;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using RBAC.Utility;
 
 namespace RBAC.Service
 {
-    public class menuService : BaseService<menuModel, int>, ImenuService
+    public class menuService : BaseService<Menu, int>, ImenuService
     {
         private ImenuRepository repository;
 
@@ -40,7 +42,7 @@ namespace RBAC.Service
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="list"></param>
-        private void GetSubNodes(treemodel tree, List<menuModel> list)
+        private void GetSubNodes(treemodel tree, List<Menu> list)
         {
             foreach (var item in list.Where(m => m.ParnetID == tree.id))
             {
@@ -57,7 +59,7 @@ namespace RBAC.Service
         /// <returns></returns>
         public int CreateMenu(treemodel treemodel)
         {
-            return repository.Create(new menuModel { ParnetID = treemodel.id });
+            return repository.Create(new Menu { ParnetID = treemodel.id });
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace RBAC.Service
         /// 获取根节点
         /// </summary>
         /// <returns></returns>
-        public List<menuModel> GetRootNodes()
+        public List<Menu> GetRootNodes()
         {
             var List = repository.GetList();
 

@@ -36,7 +36,7 @@ namespace RBAC.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(adminModel adminModel)
+        public IActionResult Create(Admin adminModel)
         {
             return Json(adminService.Create(adminModel));
         }

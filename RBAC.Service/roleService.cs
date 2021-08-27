@@ -7,13 +7,7 @@ using System.Text;
 
 namespace RBAC.Service
 {
-    public class roleService : BaseService<roleModel, int>, IroleService
+    public class roleService : BaseService<Role, int>, IroleService
     {
-        public override int Create(roleModel entity)
-        {
-            //中间表
-
-            return base.Create(entity);
-        }
     }
 }

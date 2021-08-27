@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RBAC.Repository
 {
-    public class roleRepository : BaseRepository<roleModel, int>, IroleRepository
+    public class roleRepository : BaseRepository<Role, int>, IroleRepository
     {
     }
 }

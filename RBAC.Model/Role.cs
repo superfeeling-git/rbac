@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
+using RBAC.Model.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace RBAC.Model
 {
-    public class roleModel
+    public class Role : BaseDto
     {
         #region 公共属性
         ///<Summary>
@@ -18,7 +21,7 @@ namespace RBAC.Model
         /// <summary>
         /// 多个权限
         /// </summary>
-        public List<menuModel> menuModel { get; set; }
+        public List<Menu> menuModel { get; set; }
         #endregion
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
+using RBAC.Model.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace RBAC.Model
 {
-    public class menuModel
+    public class Menu : BaseDto
     {
         #region 公共属性
         ///<Summary>

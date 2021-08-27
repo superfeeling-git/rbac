@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using RBAC.Model.Base;
 
 namespace RBAC.Model
 {
-    public class adminModel
+    public class Admin
     {
         #region 公共属性
         ///<Summary>
@@ -27,9 +29,6 @@ namespace RBAC.Model
         /// 
         ///</Summary>
         public string LastLoginIP { get; set; }
-        ///<Summary>
-        /// 
-        ///</Summary>
         public DateTime CreateTime { get; set; }
         #endregion
     }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RBAC.IService
 {
-    public interface IroleService : IBaseService<roleModel, int>
+    public interface IroleService : IBaseService<Role, int>
     {
     }
 }

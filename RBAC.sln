@@ -7,15 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC", "RBAC\RBAC.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.ReflectionTest", "RBAC.ReflectionTest\RBAC.ReflectionTest.csproj", "{624CDA11-F25E-4CC9-AF50-FE76889C0329}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Model", "RBAC.Model\RBAC.Model.csproj", "{2DA1093A-EAE5-4048-A8AD-A416855859B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.Model", "RBAC.Model\RBAC.Model.csproj", "{2DA1093A-EAE5-4048-A8AD-A416855859B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IRepository", "RBAC.IRepository\RBAC.IRepository.csproj", "{F8A6B447-7268-487A-9882-A6D2D6037F03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.IRepository", "RBAC.IRepository\RBAC.IRepository.csproj", "{F8A6B447-7268-487A-9882-A6D2D6037F03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Repository", "RBAC.Repository\RBAC.Repository.csproj", "{71596BDB-662B-4BC5-9CE7-48A993B42A20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.Repository", "RBAC.Repository\RBAC.Repository.csproj", "{71596BDB-662B-4BC5-9CE7-48A993B42A20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.IService", "RBAC.IService\RBAC.IService.csproj", "{D78C45C6-0D8F-4A91-AD42-0BDF70409BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.IService", "RBAC.IService\RBAC.IService.csproj", "{D78C45C6-0D8F-4A91-AD42-0BDF70409BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Service", "RBAC.Service\RBAC.Service.csproj", "{95047900-76DE-46F5-82A9-BDEF3DFF3158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RBAC.Service", "RBAC.Service\RBAC.Service.csproj", "{95047900-76DE-46F5-82A9-BDEF3DFF3158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBAC.Utility", "RBAC.Utility\RBAC.Utility.csproj", "{A1983C17-9DA3-4CD1-BB21-4E338318197A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{95047900-76DE-46F5-82A9-BDEF3DFF3158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95047900-76DE-46F5-82A9-BDEF3DFF3158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95047900-76DE-46F5-82A9-BDEF3DFF3158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1983C17-9DA3-4CD1-BB21-4E338318197A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1983C17-9DA3-4CD1-BB21-4E338318197A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1983C17-9DA3-4CD1-BB21-4E338318197A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1983C17-9DA3-4CD1-BB21-4E338318197A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

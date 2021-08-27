@@ -13,13 +13,13 @@ namespace RBAC.IService.Base
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        int Create(TEntity entity);
+        int Create<TEntityDto>(TEntityDto entity);
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        int Update(TEntity entity);
+        int Update<TEntityDto>(TEntityDto entity);
         /// <summary>
         /// 根据主键删除
         /// </summary>

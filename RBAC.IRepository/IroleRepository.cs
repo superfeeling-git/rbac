@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RBAC.IRepository
 {
-    public interface IroleRepository : IBaseRepository<roleModel, int>
+    public interface IroleRepository : IBaseRepository<Role, int>
     {
     }
 }

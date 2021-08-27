@@ -6,7 +6,7 @@ using RBAC.Model;
 
 namespace RBAC.IRepository
 {
-    public interface ImenuRepository : IBaseRepository<menuModel, int>
+    public interface ImenuRepository : IBaseRepository<Menu, int>
     {
     }
 }

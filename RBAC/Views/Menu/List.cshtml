@@ -31,6 +31,11 @@
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>
+        </div>
+    </script>
     <script>
         layui.config({
             base: '/LayUI/dist/layuiadmin/' //静态资源所在路径
@@ -43,26 +48,31 @@
             table.render({
                 elem: '#menu-list'
                 , url: '/Menu/GetRootNodes'
-                , toolbar: 'default'
+                , toolbar: '#toolbarDemo'
                 , cols: [[ //标题栏
                     { field: 'MenuID', title: '菜单ID', width: 80 }
                     , { field: 'MenuName', title: '菜单名称', edit: "text" }
                     , { field: 'MenuLink', title: '链接地址' }
-                    , { field: 'IsShow', title: '是否显示', templet: function (d) {
-                        //得到当前行数据，并拼接成自定义模板
-                        return d.IsShow?"显示":"隐藏"
-                    } }
+                    , {
+                        field: 'IsShow', title: '是否显示', templet: function (d) {
+                            //得到当前行数据，并拼接成自定义模板
+                            return d.IsShow ? "显示" : "隐藏"
+                        }
+                    }
                     , { toolbar: '#barDemo', title: '操作' }
                 ]]
             });
 
-            //监听搜索
-            form.on('submit(LAY-app-contlist-search)', function (data) {
-                var field = data.field;
-
-                //执行重载
-                table.reload('LAY-app-content-list', {
-                    where: field
+            //触发事件
+            table.on('toolbar(menu-list)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                layer.open({
+                    type: 2,
+                    title: '添加菜单',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['680px', '260px'],
+                    content: `/Menu/CreateRoot/` //iframe的url
                 });
             });
 
@@ -82,7 +92,7 @@
                             success: function (d) {
                                 if (d > 0) {
                                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                                    
+
                                     layer.msg("删除节点成功", { icon: 1 });
                                 } else {
                                     layer.msg("还有子节点", { icon: 3, time: 6000 }, function () {
@@ -100,24 +110,20 @@
                         title: '编辑菜单',
                         shadeClose: true,
                         shade: 0.8,
-                        area: ['680px', '300px'],
+                        area: ['680px', '260px'],
                         content: `/Menu/Edit/${data.MenuID}` //iframe的url
                     });
                 }
             });
 
             table.on('edit(menu-list)', function (obj) { //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
-                console.log(obj.value); //得到修改后的值
-                console.log(obj.field); //当前编辑的字段名
-                console.log(obj.data); //所在行的所有相关数据  
-
                 $.ajax({
                     url: "/Menu/UpdateName",
                     type: "post",
                     dataType: "json",
                     data: obj.data,
                     success: function (d) {
-                        layer.msg("更新成功", {icon:1})
+                        layer.msg("更新成功", { icon: 1 })
                     }
                 })
             });

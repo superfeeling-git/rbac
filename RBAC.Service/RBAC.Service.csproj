@@ -8,6 +8,7 @@
     <ProjectReference Include="..\RBAC.IRepository\RBAC.IRepository.csproj" />
     <ProjectReference Include="..\RBAC.IService\RBAC.IService.csproj" />
     <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
+    <ProjectReference Include="..\RBAC.Utility\RBAC.Utility.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ namespace RBAC.ReflectionTest
 
             using (MySqlConnection conn = new MySqlConnection(connstr))
             {
-                menuModel menu = new menuModel();
+                Menu menu = new Menu();
                 menu.MenuID = 9;
                 conn.Execute("delete from menu where MenuID = @MenuID", menu);
             }

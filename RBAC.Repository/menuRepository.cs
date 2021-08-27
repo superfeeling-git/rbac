@@ -8,7 +8,7 @@ using Dapper;
 
 namespace Repository
 {
-    public class menuRepository : BaseRepository<menuModel, int>, ImenuRepository
+    public class menuRepository : BaseRepository<Menu, int>, ImenuRepository
     {
         private IConfiguration _configuration;
 
@@ -17,7 +17,5 @@ namespace Repository
             this.configuration = __configuration;
             this._configuration = __configuration;
         }
-
-        private const string ConnStr = "Mysql";
     }
 }

@@ -13,7 +13,7 @@ namespace RBAC.Service.Base
     {
         protected IBaseRepository<TEntity, Tkey> BaseRepository;
 
-        public virtual int Create(TEntity entity)
+        public virtual int Create<TEntityDto>(TEntityDto entity)
         {
             return BaseRepository.Create(entity);
         }
@@ -53,7 +53,7 @@ namespace RBAC.Service.Base
             throw new NotImplementedException();
         }
 
-        public virtual int Update(TEntity entity)
+        public virtual int Update<TEntityDto>(TEntityDto entity)
         {
             return BaseRepository.Update(entity);
         }

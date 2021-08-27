@@ -10,6 +10,7 @@ using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using RBAC.Model;
 using System.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RBAC.Repository.Base
 {
@@ -23,53 +24,64 @@ namespace RBAC.Repository.Base
         where Tkey : struct
     {
         /// <summary>
+        /// 反射程序集类型
+        /// </summary>
+        private Type type = typeof(TEntity);
+
+        /// <summary>
+        /// 主键信息
+        /// </summary>
+        private PropertyInfo key = typeof(TEntity).GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
+
+        /// <summary>
+        /// 数据库连接字符串
+        /// </summary>
+        private string ConnStr = "MySql";
+
+        /// <summary>
         /// 属性注入
         /// </summary>
         public IConfiguration configuration { get; set; }
 
-        private const string ConnStr = "Mysql";
-
-        public virtual int Create(TEntity entity)
+        
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <typeparam name="TEntityDto"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public virtual int Create<TEntityDto>(TEntityDto entity)
         {
-            string _connstr = configuration.GetConnectionString(ConnStr);
-
-            using (MySqlConnection conn = new MySqlConnection(_connstr))
+            using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
-                Type type = typeof(TEntity);
+                PropertyInfo[] properties = entity.GetType().GetProperties().Where(m => 
+                !m.GetCustomAttributes(typeof(KeyAttribute), true).Any()
+                && !m.GetCustomAttributes(typeof(NotMappedAttribute), true).Any()
+                && m.GetValue(entity) != null).ToArray();
 
-                PropertyInfo[] properties = type.GetProperties().Where(m => !m.GetCustomAttributes(typeof(KeyAttribute), true).Any() && m.GetValue(entity) != null).ToArray();
-
-                //表名
-                string TableName = type.Name.Replace("model", "", true, null);
                 //字段集合
                 List<string> fields = properties.Select(m => m.Name).ToList();
                 //值集合
                 List<string> values = properties.Select(m => "@" + m.Name).ToList();
                 //接拼SQL
-                string sql = $"INSERT INTO {TableName} ({string.Join(",", fields)}) VALUES({string.Join(",", values)})";
+                string sql = $"INSERT INTO {type.Name} ({string.Join(",", fields)}) VALUES({string.Join(",", values)})";
 
                 return conn.Execute(sql, entity);
             }
         }
 
+        /// <summary>
+        /// 单条删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual int Delete(Tkey id)
         {
-            Type type = typeof(TEntity);
-            var key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
-
-            //表名
-            string TableName = type.Name.Replace("model", "", true, null);
-
-            string sql = $"delete from {TableName} where {key.Name} = @{key.Name}";
+            string sql = $"delete from {type.Name} where {key.Name} = @{key.Name}";
 
             TEntity entity = new TEntity();
 
             key.SetValue(entity, id);
-
-            //menuModel menu = new menuModel();
-            //menu.MenuID = 9;
-            //DynamicParameters parameter = new DynamicParameters();
-            //parameter.Add($"@{key}", id, DbType.Int32, ParameterDirection.Input);
 
             using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
@@ -77,11 +89,21 @@ namespace RBAC.Repository.Base
             }
         }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
         public virtual int Delete(Tkey[] idList)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 按条件删除
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual int Delete(string where = null)
         {
             throw new NotImplementedException();
@@ -94,12 +116,7 @@ namespace RBAC.Repository.Base
         /// <returns></returns>
         public virtual TEntity GetEntity(Tkey id)
         {
-            Type type = typeof(TEntity);
-            var key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
-
-            string TableName = type.Name.Replace("model", "", true, null);
-
-            string sql = $"select * from {TableName} where {key.Name} = @{key.Name}";
+            string sql = $"select * from {type.Name} where {key.Name} = @{key.Name}";
 
             TEntity entity = new TEntity();
 
@@ -111,20 +128,27 @@ namespace RBAC.Repository.Base
             }
         }
 
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual TEntity GetEntity(string where = null)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 获取集合
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="orderby"></param>
+        /// <returns></returns>
         public virtual List<TEntity> GetList(string where = null, string orderby = null)
         {
             using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
-                Type type = typeof(TEntity);
-
-                string TableName = type.Name.Replace("model", "", true, null);
-
-                string sql = $"select * from {TableName}";
+                string sql = $"select * from {type.Name}";
 
                 if (!string.IsNullOrEmpty(where))
                     sql += where;
@@ -136,35 +160,39 @@ namespace RBAC.Repository.Base
             }
         }
 
+        /// <summary>
+        /// 分页数据
+        /// </summary>
+        /// <param name="PageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <returns></returns>
         public virtual (int, List<TEntity>) GetPage(int PageSize = 10, int PageIndex = 1)
         {
             throw new NotImplementedException();
         }
 
-        public virtual int Update(TEntity entity)
+        /// <summary>
+        /// 更新信息
+        /// </summary>
+        /// <typeparam name="TEntityDto"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+
+        public virtual int Update<TEntityDto>(TEntityDto entity)
         {
-            string _connstr = configuration.GetConnectionString(ConnStr);
-
-            using (MySqlConnection conn = new MySqlConnection(_connstr))
+            using (MySqlConnection conn = new MySqlConnection(configuration.GetConnectionString(ConnStr)))
             {
-                Type type = typeof(TEntity);
-
-                PropertyInfo[] properties = type.GetProperties()
+                PropertyInfo[] properties = entity.GetType().GetProperties()
                     .Where(m => 
                     !m.GetCustomAttributes(typeof(KeyAttribute), true).Any()
-                    &&
-                    m.GetValue(entity) != null
+                    && !m.GetCustomAttributes(typeof(NotMappedAttribute), true).Any()
+                    && m.GetValue(entity) != null
                     ).ToArray();
 
-                PropertyInfo key = type.GetProperties().Where(m => m.GetCustomAttributes(typeof(KeyAttribute), true).Any()).First();
-
-
-                //表名
-                string TableName = type.Name.Replace("model", "", true, null);
                 //字段集合
                 List<string> fields = properties.Select(m => m.Name).ToList();
 
-                string sql = $"update {TableName} set {string.Join(',', fields.Select(m => $"{m} = @{m}"))} where {key.Name} = @{key.Name}";
+                string sql = $"update {type.Name} set {string.Join(',', fields.Select(m => $"{m} = @{m}"))} where {key.Name} = @{key.Name}";
 
                 return conn.Execute(sql, entity);
             }

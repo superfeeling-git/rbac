@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Repository
 {
-    public class adminRepository : BaseRepository<adminModel, int>, IadminRepository
+    public class adminRepository : BaseRepository<Admin, int>, IadminRepository
     {
     }
 }

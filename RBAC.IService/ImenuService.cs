@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RBAC.IService
 {
-    public interface ImenuService : IBaseService<menuModel, int>
+    public interface ImenuService : IBaseService<Menu, int>
     {
         /// <summary>
         /// 递归获取所有的菜单
@@ -20,6 +20,6 @@ namespace RBAC.IService
         /// <summary>
         /// 获取根节点
         /// </summary>
-        List<menuModel> GetRootNodes();
+        List<Menu> GetRootNodes();
     }
 }

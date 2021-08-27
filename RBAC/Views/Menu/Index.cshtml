@@ -1,4 +1,4 @@
-﻿@model RBAC.Model.menuModel
+﻿@model RBAC.Model.Menu
 @{
     Layout = null;
 }
@@ -117,7 +117,7 @@
                             data: data,
                             success: function (d) {
                                 layer.msg("添加菜单成功", function () {
-                                    inst1.reload();
+                                    window.location.reload();
                                 });
                             }
                         })
@@ -133,7 +133,7 @@
                                     layer.msg("删除节点成功", { icon: 1});
                                 } else {
                                     layer.msg("还有子节点", { icon: 3, time: 6000 }, function () {
-                                        inst1.reload();
+                                        window.location.reload();
                                     });
                                 }
                             }
@@ -156,7 +156,7 @@
                     data: $("form").serialize(),
                     success: function (d) {
                         layer.msg("修改成功", { time: 1000 }, function () {
-                            inst1.reload();
+                            window.location.reload();
                         });
                     }
                 })

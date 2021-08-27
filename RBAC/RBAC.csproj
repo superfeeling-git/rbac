@@ -29,10 +29,8 @@
   <ItemGroup>
     <ProjectReference Include="..\RBAC.IRepository\RBAC.IRepository.csproj" />
     <ProjectReference Include="..\RBAC.IService\RBAC.IService.csproj" />
-    <ProjectReference Include="..\RBAC.Model\RBAC.Model.csproj" />
-    <ProjectReference Include="..\RBAC.ReflectionTest\RBAC.ReflectionTest.csproj" />
-    <ProjectReference Include="..\RBAC.Service\RBAC.Service.csproj" />
     <ProjectReference Include="..\RBAC.Repository\RBAC.Repository.csproj" />
+    <ProjectReference Include="..\RBAC.Service\RBAC.Service.csproj" />
   </ItemGroup>
 
 </Project>
